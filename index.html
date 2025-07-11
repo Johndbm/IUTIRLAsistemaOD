@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DentalCare - Reserva de Citas Odontológicas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #38bdf8;
+            --secondary-color: #0ea5e9;
+            --dark-color: #0c4a6e;
+            --light-color: #f0f9ff;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.9) 0%, rgba(14, 165, 233, 0.9) 100%);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <i class="fas fa-tooth text-2xl text-blue-400"></i>
+                <span class="text-xl font-bold text-blue-600">DentalCare</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="text-blue-600 hover:text-blue-800 font-medium">Inicio</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600 font-medium">Servicios</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium">Nosotros</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium">Contacto</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="loginBtn" class="text-blue-600 hover:text-blue-800 font-medium hidden md:block">Iniciar Sesión</button>
+                <button id="registerBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-all">Registrarse</button>
+                <button id="dashboardBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-all hidden">Mi Panel</button>
+                <button id="logoutBtn" class="text-blue-600 hover:text-blue-800 font-medium hidden">Cerrar Sesión</button>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white py-2 px-4 shadow-lg">
+            <a href="#home" class="block py-2 text-gray-600 hover:text-blue-600">Inicio</a>
+            <a href="#services" class="block py-2 text-gray-600 hover:text-blue-600">Servicios</a>
+            <a href="#about" class="block py-2 text-gray-600 hover:text-blue-600">Nosotros</a>
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-blue-600">Contacto</a>
+            <button id="mobileLoginBtn" class="block w-full text-left py-2 text-blue-600 hover:text-blue-800">Iniciar Sesión</button>
+            <button id="mobileRegisterBtn" class="block w-full text-left py-2 text-blue-600 hover:text-blue-800">Registrarse</button>
+            <button id="mobileDashboardBtn" class="block w-full text-left py-2 text-blue-600 hover:text-blue-800 hidden">Mi Panel</button>
+            <button id="mobileLogoutBtn" class="block w-full text-left py-2 text-blue-600 hover:text-blue-800 hidden">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Tu sonrisa perfecta comienza aquí</h1>
+                <p class="text-xl mb-8">Reserva tu cita odontológica de manera rápida y sencilla con nuestros especialistas.</p>
+                <button id="heroBookBtn" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md font-bold text-lg mr-4 transition-all">Reservar Cita</button>
+                <button id="heroLearnBtn" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-6 py-3 rounded-md font-bold text-lg transition-all">Conoce más</button>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                     alt="Dentista atendiendo a paciente" 
+                     class="rounded-lg shadow-xl floating max-w-md w-full">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Nuestros Servicios</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Ofrecemos una amplia gama de servicios odontológicos con tecnología de última generación y profesionales altamente capacitados.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-tooth text-6xl text-blue-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Limpieza Dental</h3>
+                        <p class="text-gray-600 mb-4">Eliminación profesional de placa y sarro para mantener tus dientes saludables y prevenir enfermedades.</p>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium">Más información</button>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-teeth text-6xl text-blue-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Blanqueamiento</h3>
+                        <p class="text-gray-600 mb-4">Tratamiento profesional para aclarar varios tonos el color de tus dientes de manera segura y efectiva.</p>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium">Más información</button>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-teeth-open text-6xl text-blue-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Ortodoncia</h3>
+                        <p class="text-gray-600 mb-4">Corrección de la posición de los dientes y mandíbulas mediante brackets o alineadores transparentes.</p>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium">Más información</button>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-tooth text-6xl text-blue-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Implantes Dentales</h3>
+                        <p class="text-gray-600 mb-4">Solución permanente para reemplazar dientes perdidos con resultados naturales y funcionales.</p>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium">Más información</button>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-teeth text-6xl text-blue-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Endodoncia</h3>
+                        <p class="text-gray-600 mb-4">Tratamiento de conducto para salvar dientes con caries profundas o infecciones en la pulpa dental.</p>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium">Más información</button>
+                    </div>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-teeth-open text-6xl text-blue-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Odontopediatría</h3>
+                        <p class="text-gray-600 mb-4">Cuidado dental especializado para niños, creando hábitos saludables desde temprana edad.</p>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium">Más información</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800">Nuestra Clínica</h2>
+                    <p class="text-gray-600 mb-4">En DentalCare nos enorgullece ofrecer atención odontológica de alta calidad con un enfoque personalizado para cada paciente.</p>
+                    <p class="text-gray-600 mb-6">Contamos con un equipo de profesionales altamente capacitados y tecnología de última generación para garantizar los mejores resultados en cada tratamiento.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Equipo profesional</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Tecnología avanzada</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Instalaciones modernas</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Protocolos de seguridad</span>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md font-medium transition-all">Conoce a nuestro equipo</button>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="h-48 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-medal text-5xl text-blue-500"></i>
+                        </div>
+                        <div class="h-48 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-user-md text-5xl text-blue-500"></i>
+                        </div>
+                        <div class="h-48 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clinic-medical text-5xl text-blue-500"></i>
+                        </div>
+                        <div class="h-48 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-5xl text-blue-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Lo que dicen nuestros pacientes</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Carlos M.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Excelente atención y profesionalismo. El blanqueamiento que me realizaron superó mis expectativas. ¡Totalmente recomendado!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Ana L.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Llevo a mis hijos desde hace años y siempre han tenido una experiencia positiva. Los odontopediatras son muy pacientes y cariñosos."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Roberto G.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Me realizaron un implante dental y el resultado es perfecto. No se nota diferencia con mis dientes naturales. Muy contento con el servicio."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800">Contáctanos</h2>
+                    <p class="text-gray-600 mb-6">Estamos aquí para responder cualquier pregunta que tengas sobre nuestros servicios o para programar una cita.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700">Av. Principal 1234, Ciudad, País</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-blue-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700">+1 234 567 890</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700">info@dentalcare.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-blue-500 mr-4 text-xl"></i>
+                            <span class="text-gray-700">Lunes a Viernes: 8:00 - 18:00<br>Sábados: 9:00 - 13:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">Síguenos</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 hover:bg-blue-200 transition-all">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 hover:bg-blue-200 transition-all">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 hover:bg-blue-200 transition-all">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 hover:bg-blue-200 transition-all">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">Envía un mensaje</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2">Nombre</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2">Correo electrónico</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 mb-2">Asunto</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 mb-2">Mensaje</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            </div>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium transition-all">Enviar mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">DentalCare</h3>
+                    <p class="text-gray-400">Tu sonrisa es nuestra prioridad. Ofrecemos servicios odontológicos de alta calidad con tecnología de punta y profesionales expertos.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Enlaces rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-all">Inicio</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-all">Servicios</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-all">Nosotros</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-all">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Servicios</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Limpieza Dental</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Blanqueamiento</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Ortodoncia</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all">Implantes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Horario</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Lunes - Viernes: 8:00 - 18:00</li>
+                        <li>Sábado: 9:00 - 13:00</li>
+                        <li>Domingo: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 DentalCare. Todos los derechos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-all">Términos y condiciones</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-all">Política de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">Iniciar Sesión</h3>
+                    <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label for="loginEmail" class="block text-gray-700 mb-2">Correo electrónico</label>
+                        <input type="email" id="loginEmail" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="loginPassword" class="block text-gray-700 mb-2">Contraseña</label>
+                        <input type="password" id="loginPassword" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rememberMe" class="mr-2">
+                            <label for="rememberMe" class="text-gray-700">Recordarme</label>
+                        </div>
+                        <a href="#" class="text-blue-500 hover:text-blue-700">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-medium transition-all mb-4">Iniciar Sesión</button>
+                    <div class="text-center">
+                        <span class="text-gray-600">¿No tienes una cuenta? </span>
+                        <button id="switchToRegister" class="text-blue-500 hover:text-blue-700 font-medium">Regístrate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">Registrarse</h3>
+                    <button id="closeRegisterModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="registerForm">
+                    <div class="mb-4">
+                        <label for="registerName" class="block text-gray-700 mb-2">Nombre completo</label>
+                        <input type="text" id="registerName" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="registerEmail" class="block text-gray-700 mb-2">Correo electrónico</label>
+                        <input type="email" id="registerEmail" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="registerPhone" class="block text-gray-700 mb-2">Teléfono</label>
+                        <input type="tel" id="registerPhone" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="registerPassword" class="block text-gray-700 mb-2">Contraseña</label>
+                        <input type="password" id="registerPassword" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="registerConfirmPassword" class="block text-gray-700 mb-2">Confirmar contraseña</label>
+                        <input type="password" id="registerConfirmPassword" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <input type="checkbox" id="acceptTerms" class="mr-2" required>
+                        <label for="acceptTerms" class="text-gray-700">Acepto los <a href="#" class="text-blue-500 hover:text-blue-700">términos y condiciones</a></label>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-medium transition-all mb-4">Registrarse</button>
+                    <div class="text-center">
+                        <span class="text-gray-600">¿Ya tienes una cuenta? </span>
+                        <button id="switchToLogin" class="text-blue-500 hover:text-blue-700 font-medium">Inicia Sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Appointment Modal -->
+    <div id="bookAppointmentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">Reservar Cita</h3>
+                    <button id="closeBookAppointmentModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="appointmentForm">
+                    <div class="mb-4">
+                        <label for="appointmentDate" class="block text-gray-700 mb-2">Fecha</label>
+                        <input type="date" id="appointmentDate" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="appointmentTime" class="block text-gray-700 mb-2">Hora</label>
+                        <select id="appointmentTime" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <option value="">Selecciona una hora</option>
+                            <option value="08:00">08:00 AM</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                            <option value="17:00">05:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="appointmentType" class="block text-gray-700 mb-2">Tipo de cita</label>
+                        <select id="appointmentType" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <option value="">Selecciona un servicio</option>
+                            <option value="Limpieza Dental">Limpieza Dental</option>
+                            <option value="Blanqueamiento">Blanqueamiento</option>
+                            <option value="Ortodoncia">Ortodoncia</option>
+                            <option value="Implantes Dentales">Implantes Dentales</option>
+                            <option value="Endodoncia">Endodoncia</option>
+                            <option value="Odontopediatría">Odontopediatría</option>
+                            <option value="Consulta General">Consulta General</option>
+                            <option value="Urgencia">Urgencia</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="appointmentNotes" class="block text-gray-700 mb-2">Notas adicionales</label>
+                        <textarea id="appointmentNotes" rows="3" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-medium transition-all">Reservar Cita</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div id="dashboardModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl mx-4 my-8">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800">Mi Panel de Citas</h3>
+                    <div>
+                        <button id="newAppointmentBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium mr-2 transition-all">Nueva Cita</button>
+                        <button id="closeDashboardModal" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-2">Información del Paciente</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <p class="text-gray-600">Nombre:</p>
+                                <p class="font-medium" id="patientName">Carlos Pérez</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">Correo electrónico:</p>
+                                <p class="font-medium" id="patientEmail">carlos@example.com</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600">Teléfono:</p>
+                                <p class="font-medium" id="patientPhone">+1 234 567 890</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="text-lg font-semibold text-gray-700 mb-4">Mis Próximas Citas</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-gray-700">Fecha</th>
+                                <th class="py-3 px-4 text-left text-gray-700">Hora</th>
+                                <th class="py-3 px-4 text-left text-gray-700">Servicio</th>
+                                <th class="py-3 px-4 text-left text-gray-700">Notas</th>
+                                <th class="py-3 px-4 text-left text-gray-700">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" id="appointmentsTableBody">
+                            <!-- Las citas se llenarán dinámicamente con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-4">Historial de Citas</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="py-3 px-4 text-left text-gray-700">Fecha</th>
+                                    <th class="py-3 px-4 text-left text-gray-700">Hora</th>
+                                    <th class="py-3 px-4 text-left text-gray-700">Servicio</th>
+                                    <th class="py-3 px-4 text-left text-gray-700">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200" id="historyTableBody">
+                                <!-- El historial se llenará dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+    <div id="flashMessages" class="fixed top-4 right-4 space-y-2 z-50"></div>
+
+    <script>
+        // Database simulation using localStorage
+        const DB = {
+            users: JSON.parse(localStorage.getItem('users')) || [],
+            appointments: JSON.parse(localStorage.getItem('appointments')) || [],
+            
+            saveUsers: function() {
+                localStorage.setItem('users', JSON.stringify(this.users));
+            },
+            
+            saveAppointments: function() {
+                localStorage.setItem('appointments', JSON.stringify(this.appointments));
+            },
+            
+            addUser: function(user) {
+                this.users.push(user);
+                this.saveUsers();
+            },
+            
+            findUserByEmail: function(email) {
+                return this.users.find(user => user.email === email);
+            },
+            
+            addAppointment: function(appointment) {
+                this.appointments.push(appointment);
+                this.saveAppointments();
+            },
+            
+            getUserAppointments: function(userId) {
+                return this.appointments.filter(app => app.userId === userId);
+            },
+            
+            cancelAppointment: function(appointmentId) {
+                const index = this.appointments.findIndex(app => app.id === appointmentId);
+                if (index !== -1) {
+                    this.appointments[index].status = 'canceled';
+                    this.saveAppointments();
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        // Current user management
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const dashboardBtn = document.getElementById('dashboardBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        const mobileRegisterBtn = document.getElementById('mobileRegisterBtn');
+        const mobileDashboardBtn = document.getElementById('mobileDashboardBtn');
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+        const heroBookBtn = document.getElementById('heroBookBtn');
+        const heroLearnBtn = document.getElementById('heroLearnBtn');
+        
+        // Modals
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const bookAppointmentModal = document.getElementById('bookAppointmentModal');
+        const dashboardModal = document.getElementById('dashboardModal');
+        
+        // Close buttons
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        const closeBookAppointmentModal = document.getElementById('closeBookAppointmentModal');
+        const closeDashboardModal = document.getElementById('closeDashboardModal');
+        
+        // Forms
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const appointmentForm = document.getElementById('appointmentForm');
+        
+        // Switch between login and register
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        
+        // Dashboard elements
+        const newAppointmentBtn = document.getElementById('newAppointmentBtn');
+        const appointmentsTableBody = document.getElementById('appointmentsTableBody');
+        const historyTableBody = document.getElementById('historyTableBody');
+        const patientName = document.getElementById('patientName');
+        const patientEmail = document.getElementById('patientEmail');
+        const patientPhone = document.getElementById('patientPhone');
+        
+        // Flash messages container
+        const flashMessages = document.getElementById('flashMessages');
+
+        // Initialize the app
+        function init() {
+            updateAuthUI();
+            setMinDateForAppointment();
+            
+            // Event listeners
+            loginBtn.addEventListener('click', () => loginModal.classList.remove('hidden'));
+            registerBtn.addEventListener('click', () => registerModal.classList.remove('hidden'));
+            dashboardBtn.addEventListener('click', showDashboard);
+            logoutBtn.addEventListener('click', logout);
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            mobileLoginBtn.addEventListener('click', () => {
+                loginModal.classList.remove('hidden');
+                mobileMenu.classList.add('hidden');
+            });
+            mobileRegisterBtn.addEventListener('click', () => {
+                registerModal.classList.remove('hidden');
+                mobileMenu.classList.add('hidden');
+            });
+            mobileDashboardBtn.addEventListener('click', () => {
+                showDashboard();
+                mobileMenu.classList.add('hidden');
+            });
+            mobileLogoutBtn.addEventListener('click', () => {
+                logout();
+                mobileMenu.classList.add('hidden');
+            });
+            heroBookBtn.addEventListener('click', () => {
+                if (currentUser) {
+                    bookAppointmentModal.classList.remove('hidden');
+                } else {
+                    loginModal.classList.remove('hidden');
+                    showFlashMessage('Por favor inicia sesión para reservar una cita', 'info');
+                }
+            });
+            heroLearnBtn.addEventListener('click', () => {
+                window.location.href = '#services';
+            });
+            
+            // Close modals
+            closeLoginModal.addEventListener('click', () => loginModal.classList.add('hidden'));
+            closeRegisterModal.addEventListener('click', () => registerModal.classList.add('hidden'));
+            closeBookAppointmentModal.addEventListener('click', () => bookAppointmentModal.classList.add('hidden'));
+            closeDashboardModal.addEventListener('click', () => dashboardModal.classList.add('hidden'));
+            
+            // Switch between login and register
+            switchToRegister.addEventListener('click', () => {
+                loginModal.classList.add('hidden');
+                registerModal.classList.remove('hidden');
+            });
+            switchToLogin.addEventListener('click', () => {
+                registerModal.classList.add('hidden');
+                loginModal.classList.remove('hidden');
+            });
+            
+            // Form submissions
+            loginForm.addEventListener('submit', handleLogin);
+            registerForm.addEventListener('submit', handleRegister);
+            appointmentForm.addEventListener('submit', handleAppointment);
+            
+            // Dashboard buttons
+            newAppointmentBtn.addEventListener('click', () => {
+                dashboardModal.classList.add('hidden');
+                bookAppointmentModal.classList.remove('hidden');
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) loginModal.classList.add('hidden');
+                if (e.target === registerModal) registerModal.classList.add('hidden');
+                if (e.target === bookAppointmentModal) bookAppointmentModal.classList.add('hidden');
+                if (e.target === dashboardModal) dashboardModal.classList.add('hidden');
+            });
+        }
+
+        // Update UI based on authentication status
+        function updateAuthUI() {
+            if (currentUser) {
+                loginBtn.classList.add('hidden');
+                registerBtn.classList.add('hidden');
+                dashboardBtn.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
+                mobileLoginBtn.classList.add('hidden');
+                mobileRegisterBtn.classList.add('hidden');
+                mobileDashboardBtn.classList.remove('hidden');
+                mobileLogoutBtn.classList.remove('hidden');
+                
+                // Update patient info in dashboard
+                if (currentUser) {
+                    patientName.textContent = currentUser.name;
+                    patientEmail.textContent = currentUser.email;
+                    patientPhone.textContent = currentUser.phone || 'No proporcionado';
+                }
+            } else {
+                loginBtn.classList.remove('hidden');
+                registerBtn.classList.remove('hidden');
+                dashboardBtn.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+                mobileLoginBtn.classList.remove('hidden');
+                mobileRegisterBtn.classList.remove('hidden');
+                mobileDashboardBtn.classList.add('hidden');
+                mobileLogoutBtn.classList.add('hidden');
+            }
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Set minimum date for appointment to today
+        function setMinDateForAppointment() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointmentDate').min = today;
+        }
+
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple validation - in a real app, you'd use proper password hashing
+            const user = DB.findUserByEmail(email);
+            
+            if (!user) {
+                showFlashMessage('Usuario no encontrado', 'error');
+                return;
+            }
+            
+            if (user.password !== password) {
+                showFlashMessage('Contraseña incorrecta', 'error');
+                return;
+            }
+            
+            // Login successful
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateAuthUI();
+            loginModal.classList.add('hidden');
+            showFlashMessage('Inicio de sesión exitoso', 'success');
+            
+            // Clear form
+            loginForm.reset();
+        }
+
+        // Handle registration
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const phone = document.getElementById('registerPhone').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            // Simple validation
+            if (password !== confirmPassword) {
+                showFlashMessage('Las contraseñas no coinciden', 'error');
+                return;
+            }
+            
+            if (DB.findUserByEmail(email)) {
+                showFlashMessage('Este correo ya está registrado', 'error');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now().toString(),
+                name,
+                email,
+                phone,
+                password // In a real app, you'd hash this
+            };
+            
+            DB.addUser(newUser);
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateAuthUI();
+            registerModal.classList.add('hidden');
+            showFlashMessage('Registro exitoso. ¡Bienvenido!', 'success');
+            
+            // Clear form
+            registerForm.reset();
+        }
+
+        // Handle appointment booking
+        function handleAppointment(e) {
+            e.preventDefault();
+            
+            if (!currentUser) {
+                showFlashMessage('Por favor inicia sesión para reservar una cita', 'error');
+                return;
+            }
+            
+            const date = document.getElementById('appointmentDate').value;
+            const time = document.getElementById('appointmentTime').value;
+            const type = document.getElementById('appointmentType').value;
+            const notes = document.getElementById('appointmentNotes').value;
+            
+            // Check if date is in the past
+            const selectedDate = new Date(date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                showFlashMessage('No puedes reservar citas en fechas pasadas', 'error');
+                return;
+            }
+            
+            // Check if time slot is available (simplified check)
+            const isSlotTaken = DB.appointments.some(app => 
+                app.date === date && 
+                app.time === time && 
+                app.status !== 'canceled'
+            );
+            
+            if (isSlotTaken) {
+                showFlashMessage('Este horario ya está ocupado. Por favor elige otro.', 'error');
+                return;
+            }
+            
+            // Create new appointment
+            const newAppointment = {
+                id: Date.now().toString(),
+                userId: currentUser.id,
+                date,
+                time,
+                type,
+                notes,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            
+            DB.addAppointment(newAppointment);
+            bookAppointmentModal.classList.add('hidden');
+            showFlashMessage('Cita reservada exitosamente', 'success');
+            
+            // Clear form
+            appointmentForm.reset();
+            
+            // Update dashboard if open
+            if (!dashboardModal.classList.contains('hidden')) {
+                loadAppointments();
+            }
+        }
+
+        // Show dashboard with appointments
+        function showDashboard() {
+            if (!currentUser) {
+                showFlashMessage('Por favor inicia sesión para acceder a tu panel', 'error');
+                return;
+            }
+            
+            dashboardModal.classList.remove('hidden');
+            loadAppointments();
+        }
+
+        // Load appointments into dashboard
+        function loadAppointments() {
+            if (!currentUser) return;
+            
+            // Clear tables
+            appointmentsTableBody.innerHTML = '';
+            historyTableBody.innerHTML = '';
+            
+            // Get user's appointments
+            const allAppointments = DB.getUserAppointments(currentUser.id);
+            
+            // Separate upcoming and past appointments
+            const now = new Date();
+            const upcoming = [];
+            const past = [];
+            
+            allAppointments.forEach(app => {
+                const appDate = new Date(`${app.date}T${app.time}`);
+                if (appDate > now && app.status === 'pending') {
+                    upcoming.push(app);
+                } else {
+                    past.push(app);
+                }
+            });
+            
+            // Sort appointments
+            upcoming.sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
+            past.sort((a, b) => new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`));
+            
+            // Display upcoming appointments
+            if (upcoming.length === 0) {
+                appointmentsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="py-4 px-4 text-center text-gray-500">No tienes citas programadas</td>
+                    </tr>
+                `;
+            } else {
+                upcoming.forEach(app => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="py-3 px-4">${formatDate(app.date)}</td>
+                        <td class="py-3 px-4">${app.time}</td>
+                        <td class="py-3 px-4">${app.type}</td>
+                        <td class="py-3 px-4">${app.notes || '-'}</td>
+                        <td class="py-3 px-4">
+                            <button class="cancel-btn bg-red-100 text-red-600 hover:bg-red-200 px-3 py-1 rounded-md text-sm font-medium transition-all" data-id="${app.id}">
+                                Cancelar
+                            </button>
+                        </td>
+                    `;
+                    appointmentsTableBody.appendChild(row);
+                });
+            }
+            
+            // Display past appointments
+            if (past.length === 0) {
+                historyTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="py-4 px-4 text-center text-gray-500">No hay historial de citas</td>
+                    </tr>
+                `;
+            } else {
+                past.forEach(app => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="py-3 px-4">${formatDate(app.date)}</td>
+                        <td class="py-3 px-4">${app.time}</td>
+                        <td class="py-3 px-4">${app.type}</td>
+                        <td class="py-3 px-4">
+                            <span class="${app.status === 'canceled' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'} px-2 py-1 rounded-full text-xs font-medium">
+                                ${app.status === 'canceled' ? 'Cancelada' : 'Completada'}
+                            </span>
+                        </td>
+                    `;
+                    historyTableBody.appendChild(row);
+                });
+            }
+            
+            // Add event listeners to cancel buttons
+            document.querySelectorAll('.cancel-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const appointmentId = this.getAttribute('data-id');
+                    cancelAppointment(appointmentId);
+                });
+            });
+        }
+
+        // Cancel an appointment
+        function cancelAppointment(appointmentId) {
+            if (confirm('¿Estás seguro de que deseas cancelar esta cita?')) {
+                const success = DB.cancelAppointment(appointmentId);
+                if (success) {
+                    showFlashMessage('Cita cancelada exitosamente', 'success');
+                    loadAppointments();
+                } else {
+                    showFlashMessage('Error al cancelar la cita', 'error');
+                }
+            }
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateAuthUI();
+            showFlashMessage('Sesión cerrada exitosamente', 'success');
+            
+            // Close dashboard if open
+            dashboardModal.classList.add('hidden');
+        }
+
+        // Show flash message
+        function showFlashMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            let bgColor, textColor, icon;
+            
+            switch (type) {
+                case 'success':
+                    bgColor = 'bg-green-100';
+                    textColor = 'text-green-800';
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'bg-red-100';
+                    textColor = 'text-red-800';
+                    icon = 'fa-exclamation-circle';
+                    break;
+                case 'info':
+                    bgColor = 'bg-blue-100';
+                    textColor = 'text-blue-800';
+                    icon = 'fa-info-circle';
+                    break;
+                case 'warning':
+                    bgColor = 'bg-yellow-100';
+                    textColor = 'text-yellow-800';
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                default:
+                    bgColor = 'bg-gray-100';
+                    textColor = 'text-gray-800';
+                    icon = 'fa-info-circle';
+            }
+            
+            messageDiv.className = `${bgColor} ${textColor} px-6 py-4 rounded-lg shadow-md flex items-center max-w-xs md:max-w-md transition-all transform translate-x-2 opacity-0 animate-[fadeIn_0.3s_ease-out_forwards]`;
+            messageDiv.innerHTML = `
+                <i class="fas ${icon} mr-3"></i>
+                <span>${message}</span>
+            `;
+            
+            flashMessages.appendChild(messageDiv);
+            
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                messageDiv.classList.add('animate-[fadeOut_0.3s_ease-in_forwards]');
+                setTimeout(() => messageDiv.remove(), 300);
+            }, 5000);
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('es-ES', options);
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
