@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Bienvenido{% endblock %}
+{% block content %}
+    <section class="hero">
+        <h1>Tu Sonrisa, Nuestra Prioridad</h1>
+        <p>Reserva tus citas odontológicas de forma fácil y rápida.</p>
+        {% if 'user_id' not in session %}
+            <a href="{{ url_for('register') }}" class="btn primary">Regístrate Ahora</a>
+            <a href="{{ url_for('login') }}" class="btn secondary">Ya tengo cuenta</a>
+        {% else %}
+            <a href="{{ url_for('dashboard') }}" class="btn primary">Ir a Mi Panel</a>
+        {% endif %}
+    </section>
+    <section class="features">
+        <h2>Nuestros Servicios</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>Odontología General</h3>
+                <p>Chequeos, limpiezas y tratamientos básicos.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Estética Dental</h3>
+                <p>Blanqueamientos, carillas y diseño de sonrisa.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Ortodoncia</h3>
+                <p>Brackets y alineadores invisibles para una sonrisa perfecta.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
