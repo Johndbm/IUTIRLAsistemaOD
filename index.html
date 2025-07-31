@@ -432,6 +432,10 @@
                 </div>
                 
                 <form id="loginForm">
+                    <div id="loginErrorAlert" class="hidden mb-4 bg-red-100 text-red-800 px-4 py-3 rounded flex items-center" role="alert">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <span id="loginErrorMsg">Error de inicio de sesión</span>
+                    </div>
                     <div class="mb-4">
                         <label for="loginEmail" class="block text-gray-700 mb-2">Correo electrónico</label>
                         <input type="email" id="loginEmail" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
@@ -469,6 +473,10 @@
                 </div>
                 
                 <form id="registerForm">
+                    <div id="registerErrorAlert" class="hidden mb-4 bg-red-100 text-red-800 px-4 py-3 rounded flex items-center" role="alert">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <span id="registerErrorMsg">Error de registro</span>
+                    </div>
                     <div class="mb-4">
                         <label for="registerName" class="block text-gray-700 mb-2">Nombre completo</label>
                         <input type="text" id="registerName" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
@@ -854,25 +862,33 @@
             // Simple validation - in a real app, you'd use proper password hashing
             const user = DB.findUserByEmail(email);
             
+            const loginErrorAlert = document.getElementById('loginErrorAlert');
+            const loginErrorMsg = document.getElementById('loginErrorMsg');
+            // Ocultar alerta previa
+            loginErrorAlert.classList.add('hidden');
             if (!user) {
                 showFlashMessage('Usuario no encontrado', 'error');
+                loginErrorMsg.textContent = 'Usuario no encontrado. Por favor verifique el usuario o contraseña e intente nuevamente.';
+                loginErrorAlert.classList.remove('hidden');
                 console.warn('Intento de inicio de sesión fallido: usuario no encontrado. Por favor verifique el usuario o contraseña e intente nuevamente.');
                 return;
             }
             
             if (user.password !== password) {
                 showFlashMessage('Contraseña incorrecta', 'error');
+                loginErrorMsg.textContent = 'Contraseña incorrecta. Por favor verifique el usuario o contraseña e intente nuevamente.';
+                loginErrorAlert.classList.remove('hidden');
                 console.warn('Intento de inicio de sesión fallido: contraseña incorrecta. Por favor verifique el usuario o contraseña e intente nuevamente.');
                 return;
             }
             
             // Login successful
+            loginErrorAlert.classList.add('hidden');
             currentUser = user;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             updateAuthUI();
             loginModal.classList.add('hidden');
             showFlashMessage('Inicio de sesión exitoso', 'success');
-            
             // Clear form
             loginForm.reset();
         }
@@ -926,17 +942,22 @@
             const registerEmailInput = document.getElementById('registerEmail');
             const registerPasswordInput = document.getElementById('registerPassword');
             const registerConfirmPasswordInput = document.getElementById('registerConfirmPassword');
+            const registerErrorAlert = document.getElementById('registerErrorAlert');
+            const registerErrorMsg = document.getElementById('registerErrorMsg');
 
-            // Limpiar estilos previos
+            // Limpiar estilos previos y alerta
             registerEmailInput.classList.remove('border-red-500');
             registerPasswordInput.classList.remove('border-red-500');
             registerConfirmPasswordInput.classList.remove('border-red-500');
+            registerErrorAlert.classList.add('hidden');
 
             if (password !== confirmPassword) {
                 showPasswordMismatch();
                 showFlashMessage('Las contraseñas no coinciden', 'error');
                 registerConfirmPasswordInput.classList.add('border-red-500');
                 registerConfirmPasswordInput.focus();
+                registerErrorMsg.textContent = 'Las contraseñas no coinciden. Por favor verifica e intenta nuevamente.';
+                registerErrorAlert.classList.remove('hidden');
                 console.warn('Registro fallido: las contraseñas no coinciden');
                 return;
             } else {
@@ -947,11 +968,14 @@
                 showFlashMessage('Este correo ya está registrado', 'error');
                 registerEmailInput.classList.add('border-red-500');
                 registerEmailInput.focus();
+                registerErrorMsg.textContent = 'Este correo ya está registrado. Por favor utiliza otro o inicia sesión.';
+                registerErrorAlert.classList.remove('hidden');
                 console.warn('Registro fallido: correo ya registrado', email);
                 return;
             }
 
             // Crear nuevo usuario
+            registerErrorAlert.classList.add('hidden');
             const newUser = {
                 id: Date.now().toString(),
                 name,
