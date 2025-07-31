@@ -856,11 +856,13 @@
             
             if (!user) {
                 showFlashMessage('Usuario no encontrado', 'error');
+                console.warn('Intento de inicio de sesión fallido: usuario no encontrado. Por favor verifique el usuario o contraseña e intente nuevamente.');
                 return;
             }
             
             if (user.password !== password) {
                 showFlashMessage('Contraseña incorrecta', 'error');
+                console.warn('Intento de inicio de sesión fallido: contraseña incorrecta. Por favor verifique el usuario o contraseña e intente nuevamente.');
                 return;
             }
             
