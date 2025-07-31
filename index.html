@@ -875,45 +875,102 @@
             loginForm.reset();
         }
 
-        // Handle registration
+        // Validación en tiempo real de contraseñas
+        const registerPassword = document.getElementById('registerPassword');
+        const registerConfirmPassword = document.getElementById('registerConfirmPassword');
+        let passwordMismatchMsg = null;
+
+        function showPasswordMismatch() {
+            if (!passwordMismatchMsg) {
+                passwordMismatchMsg = document.createElement('div');
+                passwordMismatchMsg.className = 'text-red-600 text-sm mt-1';
+                passwordMismatchMsg.textContent = 'Las contraseñas no coinciden';
+                registerConfirmPassword.parentNode.appendChild(passwordMismatchMsg);
+            }
+            registerPassword.classList.add('border-red-500');
+            registerConfirmPassword.classList.add('border-red-500');
+        }
+
+        function hidePasswordMismatch() {
+            if (passwordMismatchMsg) {
+                passwordMismatchMsg.remove();
+                passwordMismatchMsg = null;
+            }
+            registerPassword.classList.remove('border-red-500');
+            registerConfirmPassword.classList.remove('border-red-500');
+        }
+
+        function validatePasswordsRealtime() {
+            if (registerPassword.value && registerConfirmPassword.value && registerPassword.value !== registerConfirmPassword.value) {
+                showPasswordMismatch();
+            } else {
+                hidePasswordMismatch();
+            }
+        }
+
+        registerPassword.addEventListener('input', validatePasswordsRealtime);
+        registerConfirmPassword.addEventListener('input', validatePasswordsRealtime);
+
+        // Manejo del registro
         function handleRegister(e) {
             e.preventDefault();
-            
             const name = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;
             const phone = document.getElementById('registerPhone').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            
-            // Simple validation
+            const password = registerPassword.value;
+            const confirmPassword = registerConfirmPassword.value;
+
+            // Validación de contraseñas y correo
+            const registerEmailInput = document.getElementById('registerEmail');
+            const registerPasswordInput = document.getElementById('registerPassword');
+            const registerConfirmPasswordInput = document.getElementById('registerConfirmPassword');
+
+            // Limpiar estilos previos
+            registerEmailInput.classList.remove('border-red-500');
+            registerPasswordInput.classList.remove('border-red-500');
+            registerConfirmPasswordInput.classList.remove('border-red-500');
+
             if (password !== confirmPassword) {
+                showPasswordMismatch();
                 showFlashMessage('Las contraseñas no coinciden', 'error');
+                registerConfirmPasswordInput.classList.add('border-red-500');
+                registerConfirmPasswordInput.focus();
+                console.warn('Registro fallido: las contraseñas no coinciden');
                 return;
+            } else {
+                hidePasswordMismatch();
             }
-            
+
             if (DB.findUserByEmail(email)) {
                 showFlashMessage('Este correo ya está registrado', 'error');
+                registerEmailInput.classList.add('border-red-500');
+                registerEmailInput.focus();
+                console.warn('Registro fallido: correo ya registrado', email);
                 return;
             }
-            
-            // Create new user
+
+            // Crear nuevo usuario
             const newUser = {
                 id: Date.now().toString(),
                 name,
                 email,
                 phone,
-                password // In a real app, you'd hash this
+                password // En una app real, deberías hashear esto
             };
-            
+
             DB.addUser(newUser);
             currentUser = newUser;
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             updateAuthUI();
             registerModal.classList.add('hidden');
             showFlashMessage('Registro exitoso. ¡Bienvenido!', 'success');
-            
-            // Clear form
+
+            // Limpiar formulario y feedback
             registerForm.reset();
+            hidePasswordMismatch();
+            registerEmailInput.classList.remove('border-red-500');
+            registerPasswordInput.classList.remove('border-red-500');
+            registerConfirmPasswordInput.classList.remove('border-red-500');
         }
 
         // Handle appointment booking
